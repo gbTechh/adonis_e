@@ -1,0 +1,13 @@
+@layout('../admin/layouts/layout')
+
+
+@section('body')
+  <section class="hero is-warning">
+    <div class="hero-body">
+      @!component('../admin/components/head-title',{
+        title: 'Dashboard',
+        subtitle: 'Gestiona todas las métricas de tu tienda'
+      })
+    </div>
+  </section>
+@end

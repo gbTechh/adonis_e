@@ -1,0 +1,14 @@
+<form action="{{ route('admin_login_post')}}" method="POST">
+  <label>
+    Email
+    <input type="email" name="uid" value="{{ flashMessages.get('formData') ?? '' }}"/>
+  </label>
+  <label>
+    Contraseña
+    <input type="password" name="password" />
+  </label>
+  @if(flashMessages.has('form'))
+   <small>Credenciales incorrectas</small>
+  @end
+  <button type="submit">Iniciar Sesión</button>
+</form>

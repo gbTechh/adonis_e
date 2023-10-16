@@ -1,0 +1,26 @@
+{
+  "root": [
+    {
+      "domain": "root",
+      "name": "drive.local.serve",
+      "pattern": "/uploads/*",
+      "methods": [
+        "GET",
+        "HEAD"
+      ],
+      "handler": "Closure",
+      "middleware": []
+    },
+    {
+      "domain": "root",
+      "name": "",
+      "pattern": "/",
+      "methods": [
+        "GET",
+        "HEAD"
+      ],
+      "handler": "Closure",
+      "middleware": []
+    }
+  ]
+}

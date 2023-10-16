@@ -1,0 +1,26 @@
+<dialog id="modal" class=" ">
+    <header>
+      @if($slots.header)
+        {{{ await $slots.header() }}}
+      @else
+        @if(mode)
+          {{ mode === 'add' ? `Agregar ${mode}` : `Editar ${mode}` }}
+        @end
+      @end
+    </header>
+
+    <main>
+      @if($slots.body)
+        {{{ await $slots.body() }}}
+      @end
+    </main>
+
+    <footer>
+      @if($slots.footer)
+        {{{ await $slots.footer() }}}
+      @end
+    </footer>
+    <button onclick="closeDialog()" aria-label="close" class="close-modal-x right-3">❌</button>
+</dialog>
+
+

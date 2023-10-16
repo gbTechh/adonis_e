@@ -1,0 +1,102 @@
+@layout('../admin/layouts/layout')
+
+@section('body')
+  <section class="hero is-warning ">
+    <div class="hero-body mb-5 p-4">
+      @!component('../admin/components/head-title',{
+        title: 'Editar categoría',
+        subtitle: 'Edita la categoría de tu tienda',
+        backRoute: 'admin_show_categories'
+      })
+    </div>
+    <div class="bg-whitebg2 dark:bg-darkbg2 border-t-2 w-full min-h-screen p-4">
+      <form class="w-full" action="{{ route('admin_edit_category_post', { id : category?.id ?? '-1' }) }}?_method=PUT" method="POST" enctype="multipart/form-data">
+        <div class="flex w-full h-auto justify-end items-center">
+          <button
+            role="button"
+            type="submit"
+            class="p-2 px-5 flex justify-center items-center text-white bg-darkbg rounded-md text-sm"
+          >Guardar usuario</button>
+        </div>
+        <div class="mt-10">
+          <div class="w-full h-full" >
+
+              <div class="grid form-2-cols ">
+                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
+                  @!component('../admin/components/input',{
+                    label: 'Nombre',
+                    placeholder: 'Escribe el nombre',
+                    name:'name',
+                    value: flashMessages.get('name') ?? category?.name
+                  })
+                  @if(flashMessages.has('errors.name'))
+                    <small class="text-red-500 text-sm">{{flashMessages.get('errors.name')}}</small>
+                  @end
+                </div>
+                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
+                  @!component('../admin/components/input',{
+                    label: 'Slug',
+                    placeholder: 'Escribe un slug para la categoría',
+                    name:'slug',
+                    value: flashMessages.get('slug') ?? category?.slug
+                  })
+                  @if(flashMessages.has('errors.slug'))
+                    <small class="text-red-500 text-sm">{{flashMessages.get('errors.slug')}}</small>
+                  @end
+                </div>
+                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
+                  @!component('../admin/components/select',{
+                    label: 'Selecciona una categoría padre',
+                    data: categories,
+                    value: flashMessages.get('parent_id') ?? category?.parent_id,
+                    name:'parent_id',
+                    selected: selected,
+                  })
+                  @if(flashMessages.has('errors.parent_id'))
+                    <small class="text-red-500 text-sm">{{flashMessages.get('errors.parent_id')}}</small>
+                  @end
+                </div>
+                <div class="flex w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
+                  <div class="mr-2 min-w-[60px]">
+                    <img src="{{ `../../${category?.thumbnail}`}}" class="w-20 h-20 object-cover display-img"/>
+                  </div>
+                  <div class="flex flex-col w-auto h-auto">
+                    @!component('../admin/components/input',{
+                      label: 'Selecciona una imagen',
+                      name:'thumbnail',
+                      type: 'file',
+                      classes: 'w-full'
+                    })
+                    @if(flashMessages.has('thumbnail'))
+                  </div>
+                    <small class="text-red-500 text-sm">{{flashMessages.get('thumbnail')}}</small>
+                  @end
+                </div>
+              </div>
+
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+
+
+  <script>
+    const $ = (selector) => document.querySelector(selector)
+    const imgPreview = $('.display-img')
+    const input = $('input[name="thumbnail"]')
+    input.addEventListener('change', function(e){
+      let file = event.target.files[0]
+      if(file){
+        let reader = new FileReader();
+        reader.onload = function(e) {
+          imgPreview.src = e.target.result;
+        };
+        reader.readAsDataURL(file)
+      }
+    })
+  </script>
+@end
+
+

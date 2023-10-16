@@ -1,0 +1,32 @@
+<form action="{{ route('admin_register_post')}}" method="POST">
+  <label>
+    Nombre
+    <input type="text" name="name"/>
+  </label>
+  @if(flashMessages.has('errors.name'))
+    <small>{{flashMessages.get('errors.name')}}</small>
+  @end
+  <label>
+    Email
+    <input type="email" name="email"/>
+  </label>
+  @if(flashMessages.has('errors.email'))
+    <small>{{flashMessages.get('errors.email')}}</small>
+  @end
+  <label>
+    Contraseña
+    <input type="password" name="password"/>
+  </label>
+  @if(flashMessages.has('errors.password'))
+    <small>{{flashMessages.get('errors.password')}}</small>
+  @end
+  <label>
+    Repetir contraseña
+    <input type="password" name="password_confirmation"/>
+  </label>
+  @if(flashMessages.has('errors.password_confirmation'))
+    <small>{{flashMessages.get('errors.password_confirmation')}}</small>
+  @end
+
+  <button type="submit">Registrarme</button>
+</form>

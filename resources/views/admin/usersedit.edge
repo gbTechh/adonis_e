@@ -1,0 +1,74 @@
+@layout('../admin/layouts/layout')
+
+@set('modalMode', typeModal)
+@section('body')
+  <section class="hero is-warning ">
+    <div class="hero-body mb-10 p-4">
+      @!component('../admin/components/head-title',{
+        title: 'Usuarios',
+        subtitle: 'Gestiona todos los usuarios de tu tienda'
+      })
+    </div>
+    <div class="bg-whitebg2 dark:bg-darkbg2 border-t-2 w-full h-screen p-4">
+      <div class="flex w-full h-auto justify-end items-center">
+        <button
+          class="p-2 px-5 flex justify-center items-center text-white bg-darkbg rounded-md text-sm"
+        >Agregar producto</button>
+      </div>
+      <div class="mt-5">
+        @!component('../../admin/components/table', {
+          headers: ['Nombre', 'Email'],
+          data: users,
+          values: ['name', 'email', 'id'],
+          routeEdit: 'admin_edit_user'
+        })
+        @component('../../admin/components/modal', {
+          mode: modalMode,
+          user: selectedUser,
+          sigleName: 'usuario',
+          pluralName: 'usuarios',
+        })
+          @slot('body')
+            <div>
+              <p>Are you sure, you want to delete the post</p>
+            </div>
+          @end
+
+          @slot('footer')
+            <div class="flex">
+              <button>Yes, delete it</button>
+              <button>Cancel</button>
+            </div>
+          @end
+        @endcomponent
+
+
+          {{--  @slot('data')
+            @foreach (user in users)
+              <tr>
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+              </tr>
+            @endforeach
+          @end  --}}
+
+          {{--  @slot('pagination', true)  --}}
+
+
+      </div>
+    </div>
+  </section>
+  <script>
+    const dialog = document.querySelector('#modal');
+    const btnShowModal = document.querySelector('.btn-open-modal');
+    function openDialog(mode) {
+      dialog.showModal();
+    };
+    function closeDialog() {
+      dialog.close();
+    }
+  </script>
+
+@end
+
+

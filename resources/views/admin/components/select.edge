@@ -1,0 +1,7 @@
+<label class="w-full mb-2 text-whitetext dark:text-darktext font-semibold text-sm">{{label}}</label>
+<select placeholder="{{placeholder}}" type="{{type ?? 'text'}}" name="{{name}}" value="{{value ?? ''}}" class="rounded-md bg-whitecard dark:bg-darkcard p-3 text-sm text-whitetext dark:text-darktext">
+  <option value="0" class="text-whitetext dark:text-darktext">{{defaultText ?? 'Seleccionar una categoría padre...'}}</option>
+  @each(item in data)
+     <option value="{{item.id}}" class="text-whitetext dark:text-darktext" {{ item.id === selected && 'selected'}}>{{item.name}}</option>
+  @end
+</select>

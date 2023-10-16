@@ -1,0 +1,106 @@
+@layout('../admin/layouts/layout')
+
+
+@section('body')
+  <section class="hero is-warning ">
+    <div class="hero-body mb-5 p-4">
+      @!component('../admin/components/head-title',{
+        title: 'Categorías',
+        subtitle: 'Gestiona todas las categorías de tu tienda',
+      })
+    </div>
+    <div class="bg-whitebg2 dark:bg-darkbg2 border-t-2 w-full h-auto min-h-screen p-4 overflow-auto pb-20">
+      <div class="flex w-full h-auto justify-end items-center">
+        <a
+          href="{{route('admin_add_category')}}"
+          class="p-2 px-5 flex justify-center items-center text-white bg-darkbg rounded-md text-sm"
+        >Agregar categoría</a>
+      </div>
+      <div class="mt-5">
+        @!component('../../admin/components/table', {
+          headers: ['Imagen','Nombre', 'Slug', 'Categoría Padre'],
+          data: categories,
+          values: ['thumbnail', 'name', 'slug', 'parent_name', 'id'],
+          routeEdit: 'admin_edit_category',
+          deleteRoute: 'admin_delete_category',
+          method: 'DELETE'
+        })
+      </div>
+    </div>
+  </section>
+
+  @if(flashMessages.get('isAddedCategory'))
+    @component('../../admin/components/alert', {
+      type: 'success',
+      title: 'Categoría agregada con éxito',
+    })
+
+    @end
+  @end
+  @if(flashMessages.get('isEditedCategory'))
+    @component('../../admin/components/alert', {
+      type: 'success',
+      title: 'Categoría editada con éxito',
+    })
+    @end
+  @end
+  @if(flashMessages.get('succesDelete'))
+    @component('../../admin/components/alert', {
+      type: 'success',
+      title: 'Categoría eliminada con éxito',
+    })
+    @end
+  @end
+  @if(flashMessages.get('errorDelete'))
+    @component('../../admin/components/alert', {
+      type: 'error',
+      title: 'Error al eliminar la categoría',
+    })
+    @end
+  @end
+
+
+
+  @component('../../admin/components/modal')
+    @slot('header')
+      <p class="font-semibold mb-4 text-whitetext dark:text-darktext uppercase text-body">Eliminar categoría</p>
+    @end
+    @slot('header')
+      <p class="text-whitetext2 dark:text-darktext2">¿Realmente desea eliminar la categoría?</p>
+      <hr class="w-full h-2 my-4"/>
+    @end
+    @slot('footer')
+      <div class="flex items-center justify-end">
+        <button class="h-10 p-2 px-5 flex justify-center items-center text-white bg-darkbg rounded-md text-sm mr-2" onclick="closeDialog()">Cancelar</button>
+        <button type="button" id="delete-user" class="h-10 p-2 px-5 flex justify-center items-center text-white bg-red-600 rounded-md text-sm">Aceptar</button>
+      </div>
+    @end
+  @end
+
+  <script>
+    const dialog = document.querySelector('#modal');
+    const btnShowModal = document.querySelector('.btn-open-modal');
+
+    function formSubmit(ev, id){
+      openDialog()
+      const btnDelete = document.querySelector('#delete-user')
+      btnDelete.addEventListener('click', (event) => {
+        event.preventDefault()
+        ev.preventDefault()
+        console.log(ev.target)
+        ev.target.submit()
+        closeDialog()
+      })
+    }
+
+    function openDialog() {
+      dialog.showModal();
+    };
+    function closeDialog() {
+      dialog.close();
+    }
+  </script>
+
+@end
+
+

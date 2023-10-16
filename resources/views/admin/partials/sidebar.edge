@@ -1,0 +1,16 @@
+<aside class=" w-full h-full max-w-[280px] rounded-md min-h-screen flex flex-col shadow-sm">
+  <div class="w-full h-20 py-2">
+  {{--logo--}}
+  </div>
+  <div class="w-full h-full">
+    <ul class="w-full h-full px-4">
+      @each(item in routes)
+        <li class="flex items-center justify-center px-2 py-1 rounded-md {{request.request.url === item.path ? 'bg-darkcard  text-darktext' : 'text-darktext2'}}">
+
+          <img src="{{ item.pathIcon }}" alt="{{item.name}}" class="w-10 pb-[2px] px-3 img-white"></object>
+          <a href="{{item.path}}" class=" text-sm capitalize py-3 w-full ml-2 font-semibold ">{{item.name}}</a>
+        </li>
+      @end
+    </ul>
+  </div>
+</aside>

@@ -1,0 +1,36 @@
+<div class="{{type === 'success' && 'bg-teal-100'}} {{type === 'error' && 'bg-red-200'}} border-t-4 {{type === 'success' && 'text-teal-900'}} {{type === 'error' && 'text-red-900'}}  px-4 py-3 shadow-md fixed top-0 right-0 rounded-md mt-3 mr-3 alert overflow-hidden" role="alert">
+  <div class="flex">
+    <div class="pt-[2px] mr-2">
+    @if(type == 'success')
+      <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve" width="512" height="512">
+      <g>
+        <path d="M405.333,0H106.667C47.786,0.071,0.071,47.786,0,106.667v298.667C0.071,464.214,47.786,511.93,106.667,512h298.667   C464.214,511.93,511.93,464.214,512,405.333V106.667C511.93,47.786,464.214,0.071,405.333,0z M426.667,172.352L229.248,369.771   c-16.659,16.666-43.674,16.671-60.34,0.012c-0.004-0.004-0.008-0.008-0.012-0.012l-83.563-83.541   c-8.348-8.348-8.348-21.882,0-30.229s21.882-8.348,30.229,0l83.541,83.541l197.44-197.419c8.348-8.318,21.858-8.294,30.176,0.053   C435.038,150.524,435.014,164.034,426.667,172.352z"/>
+      </g>
+      </svg>
+
+    @elseif(type == 'error')
+      <svg class="w-5 h-5 " fill="#F74242" xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="512" height="512">
+      <path fill="#F74242" d="M16,8a1,1,0,0,0-1.414,0L12,10.586,9.414,8A1,1,0,0,0,8,9.414L10.586,12,8,14.586A1,1,0,0,0,9.414,16L12,13.414,14.586,16A1,1,0,0,0,16,14.586L13.414,12,16,9.414A1,1,0,0,0,16,8Z"/><path d="M12,0A12,12,0,1,0,24,12,12.013,12.013,0,0,0,12,0Zm0,22A10,10,0,1,1,22,12,10.011,10.011,0,0,1,12,22Z"/></svg>
+
+
+    @end
+    </div>
+    <div>
+      <p class="font-bold">{{title}}</p>
+      @if(text)
+        <p class="text-sm">{{text}}</p>
+      @end
+    </div>
+  </div>
+  <span class="alert-animation-close {{type === 'success' && 'bg-teal-500 '}} {{type === 'error' && 'bg-red-500'}} h-1 absolute top-0 left-0 rounded-lg"></span>
+</div>
+
+
+<script>
+    const alertElements = document.querySelectorAll('.alert')
+    alertElements.forEach(alert => {
+      setTimeout(function() {
+          alert.parentNode.removeChild(alert);
+      }, 3000);
+    })
+</script>

@@ -1,0 +1,98 @@
+
+<div class="scroll-auto">
+  <div class="w-full mb-5 flex justify-between items-center">
+    <div>
+      <button id="show-rows-btn">Mostrar:</button>
+      <select id="show-rows-select" class="p-1 px-3 rounded-sm shadow-sm">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+      </select>
+    </div>
+    <div class="w-1/2 min-w-[150px] border-b-[1px] border-b-gray-300 flex justify-start items-center">
+      <img src="/assets/search.svg" width="20" class=""/>
+      <input id="search-input" placeholder="Buscar..." type="text" name="search" class="w-full p-2 text-whitetext2 bg-transparent"/>
+
+    </div>
+  </div>
+
+
+  <table class="w-full h-auto px-3">
+    <thead class="border-b-[1px] border-b-gray-300">
+      <tr class="w-full">
+        @each((item, head) in headers)
+          <th class="p-2 text-whitetext font-poppins font-medium text-sm text-left">{{item}}</th>
+        @end
+        <th class="p-2 text-whitetext font-poppins font-medium text-sm text-left">Acciones</th>
+      </tr>
+    </thead>
+    <tbody class="w-full">
+        @each(row in data)
+        <tr class="w-full hover:bg-whitebg border-b-[1px] border-b-gray-300">
+          @each(val in values)
+            @if(val === 'thumbnail')
+              @if(row[val])
+                <td class="text-sm p-3 w-auto flex-1"><img src="{{`../${row[val]}`}}" width="40" height="40" alt="{{row['name']}}"/></td>
+              @else
+                <td class="text-sm p-3 w-auto flex-1"><img src="../no-image.jpg" width="40" height="40" alt="Empty file"/></td>
+              @end
+            @elseif(val !== 'id')
+              <td class="text-sm p-3 w-auto flex-1">{{row[val]}}</td>
+            @else
+              <td data-id="{{row[val]}}" class="w-32 p-3 table-actions">
+                <a class="bg-green-600 p-1 rounded-sm edit-btn inline-block mr-2" href="{{route(routeEdit, { id: row[val] })}}" ><img src="/assets/edit.svg" width="15" class="filter-white"></a>
+                <form action="{{ route(deleteRoute, { id: row[val]} ) }}?_method={{method ?? 'POST'}}" method="POST" onsubmit="event.preventDefault(); formSubmit(event,{{row[val]}})">
+                  <button type="submit" class=" bg-red-600 p-1 rounded-sm inline-block cursor-pointer" ><img src="/assets/delete.svg" width="15" class="filter-white"></button>
+                </form>
+              </td>
+            @end
+          @end
+        </tr>
+        @end
+    </tbody>
+  </table>
+</div>
+
+
+<script>
+  const searchInput = document.querySelector('#search-input');
+  const showRowsSelect = document.querySelector('#show-rows-select');
+  const showRowsBtn = document.querySelector('#show-rows-btn');
+
+  const editBtn = document.querySelectorAll('.edit-btn');
+  editBtn.forEach(e => {
+    e.addEventListener('click', function(){
+      @set('modalMode', 'edit')
+    })
+  })
+
+  // Función para filtrar los datos de la tabla según el término de búsqueda
+  searchInput.addEventListener('input', () => {
+    const searchTerm = searchInput.value.toLowerCase();
+    const rows = document.querySelectorAll('tbody tr');
+    rows.forEach((row) => {
+      const rowData = row.innerText.toLowerCase();
+      if (rowData.includes(searchTerm)) {
+        row.style.display = 'table-row';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  });
+
+  // Función para ajustar el número de filas visibles en la tabla según la opción seleccionada
+  showRowsBtn.addEventListener('click', () => {
+    const numRowsToShow = parseInt(showRowsSelect.value);
+    const rows = document.querySelectorAll('tbody tr');
+    rows.forEach((row, index) => {
+      if (index < numRowsToShow) {
+        row.style.display = 'table-row';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  });
+
+
+</script>
+

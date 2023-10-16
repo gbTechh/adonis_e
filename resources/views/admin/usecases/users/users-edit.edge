@@ -1,0 +1,80 @@
+@layout('../admin/layouts/layout')
+
+@section('body')
+  <section class="hero is-warning ">
+    <div class="hero-body mb-5 p-4">
+      @!component('../admin/components/head-title',{
+        title: 'Agrega un nuevo usuario',
+        subtitle: 'Agrega un nuevo usuario administrador a tu tienda',
+        backRoute: 'admin_show_users'
+      })
+    </div>
+    <div class="bg-whitebg2 dark:bg-darkbg2 border-t-2 w-full h-screen p-4">
+      <form class="w-full" action="{{ route('admin_edit_user_post', { id : user.id }) }}" method="POST">
+        <div class="flex w-full h-auto justify-end items-center">
+          <button
+            role="button"
+            type="submit"
+            class="p-2 px-5 flex justify-center items-center text-white bg-darkbg rounded-md text-sm"
+          >Guardar usuario</button>
+        </div>
+        <div class="mt-10">
+          <div class="w-full h-full" >
+
+              <div class="grid form-2-cols ">
+                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
+                  @!component('../admin/components/input',{
+                    label: 'Nombre',
+                    placeholder: 'Escribe el nombre',
+                    name:'name',
+                    value: flashMessages.get('name') ?? user.name
+                  })
+                  @if(flashMessages.has('errors.name'))
+                    <small class="text-red-500 text-sm">{{flashMessages.get('errors.name')}}</small>
+                  @end
+                </div>
+                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
+                  @!component('../admin/components/input',{
+                    label: 'Email',
+                    placeholder: 'Escribe un correo electrónico',
+                    name:'email',
+                    value: flashMessages.get('email') ?? user.email
+                  })
+                  @if(flashMessages.has('errors.email'))
+                    <small class="text-red-500 text-sm">{{flashMessages.get('errors.email')}}</small>
+                  @end
+                </div>
+                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
+                  @!component('../admin/components/input',{
+                    label: 'Cambiar contraseña',
+                    placeholder: 'Escribe una contraseña',
+                    name:'password',
+                    type: 'password'
+                  })
+                  @if(flashMessages.has('errors.password'))
+                    <small class="text-red-500 text-sm">{{flashMessages.get('errors.password')}}</small>
+                  @end
+                </div>
+                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
+                  @!component('../admin/components/input',{
+                    label: 'Repetir contraseña',
+                    placeholder: 'Repite la contraseña contraseña',
+                    name:'password_confirmation',
+                    type: 'password',
+                  })
+                  @if(flashMessages.has('errors.password_confirmation'))
+                    <small class="text-red-500 text-sm">{{flashMessages.get('errors.password_confirmation')}}</small>
+                  @end
+                </div>
+              </div>
+
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+
+@end
+
+

@@ -1,0 +1,260 @@
+@layout('../admin/layouts/layout')
+
+@section('body')
+  <section class="hero is-warning ">
+    <div class="hero-body mb-5 p-4">
+      @!component('../admin/components/head-title',{
+        title: 'Agrega uno nuevo producto',
+        subtitle: 'Agrega un nuevo producto a tu tienda',
+        backRoute: 'admin_show_products'
+      })
+    </div>
+    <div class="bg-whitebg2 dark:bg-darkbg2 border-t-2 w-full min-h-screen p-4">
+      <form class="w-full" action="{{ route('admin_add_product_post') }}" method="POST" enctype="multipart/form-data">
+        <div class="flex w-full h-auto justify-end items-center">
+          <button
+            role="button"
+            type="submit"
+            class="p-2 px-5 flex justify-center items-center text-white bg-darkbg rounded-md text-sm"
+          >Agregar producto</button>
+        </div>
+        <div class="mt-10">
+          <div class="w-full h-full" >
+              <div class="grid form-2-cols ">
+                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
+                  @!component('../admin/components/input',{
+                    label: 'Nombre',
+                    placeholder: 'Escribe el nombre',
+                    name:'name',
+                    value: flashMessages.get('name')
+                  })
+                  @if(flashMessages.has('errors.name'))
+                    <small class="text-red-500 text-sm">{{flashMessages.get('errors.name')}}</small>
+                  @end
+                </div>
+                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
+                  @!component('../admin/components/input',{
+                    label: 'Slug',
+                    placeholder: 'producto-slug',
+                    name:'slug',
+                    value: flashMessages.get('slug')
+                  })
+                  @if(flashMessages.has('errors.slug'))
+                    <small class="text-red-500 text-sm">{{flashMessages.get('errors.slug')}}</small>
+                  @end
+                </div>
+                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
+                   @!component('../admin/components/textarea',{
+                    label: 'Descripción del producto',
+                    name:'description',
+                    placeholder: 'Descripcion',
+                    rows: '6'
+                  })
+                  @if(flashMessages.has('errors.description'))
+                    <small class="text-red-500 text-sm">{{flashMessages.get('errors.description')}}</small>
+                  @end
+                </div>
+                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1 justify-between">
+                  <div class="flex items-center justify-between">
+                    <div class="relative mr-2 rounded-md overflow-hidden">
+                      <div class="opacity-0 hover:opacity-100 w-full absolute h-full left-0 top-0 bg-slate-600/60 transition-all  flex item-center justify-center delete-img" >
+                         @!component('../admin/components/icons/delete',{
+                          width:20,
+                          height: 20,
+                          classes: 'self-center',
+                          color:'#fff'
+                         })
+                      </div>
+                      <img src="../../no-image.jpg" class="display-img w-24 h-20 object-cover" />
+                    </div>
+                    <div>
+                      @!component('../admin/components/input',{
+                        label: 'Imagen principal',
+                        name:'thumbnail',
+                        type: 'file',
+                        classes:'mt-2 w-full'
+                      })
+                      @if(flashMessages.has('thumbnail'))
+                        <small class="text-red-500 text-sm">{{flashMessages.get('thumbnail')}}</small>
+                      @end
+                    </div>
+                  </div>
+                  <div class="mt-4 flex flex-col h-full">
+                    <div class="w-full rounded-md border-[1px] h-auto p-4 border-dashed border-whitetext2">
+                      <label for="gallery" class="text-whitetext2 dark:text-darktext2 text-sm w-full hover:text-bold inline-block cursor-pointer">Haz click para agregar más fotos o videos</label>
+                      <input id="gallery" type="file" multiple accept="*/image" class="hidden multiple-files"/>
+                      <div class="preview-multifile"></div>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
+                  @!component('../admin/components/input',{
+                    label: 'Precio descuento',
+                    placeholder: '9.99',
+                    name:'price_discount',
+                  })
+                  @if(flashMessages.has('errors.price_discount'))
+                    <small class="text-red-500 text-sm">{{flashMessages.get('errors.price_discount')}}</small>
+                  @end
+                </div>
+                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
+                  @!component('../admin/components/input',{
+                    label: 'Precio normal',
+                    placeholder: '19.99',
+                    name:'price_normal',
+                  })
+                  @if(flashMessages.has('errors.price_normal'))
+                    <small class="text-red-500 text-sm">{{flashMessages.get('errors.price_normal')}}</small>
+                  @end
+                </div>
+                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
+                  @!component('../admin/components/input',{
+                    label: 'Precio normal',
+                    placeholder: '19.99',
+                    name:'price_normal',
+                  })
+                  @if(flashMessages.has('errors.price_normal'))
+                    <small class="text-red-500 text-sm">{{flashMessages.get('errors.price_normal')}}</small>
+                  @end
+                </div>
+                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
+                  @!component('../admin/components/input',{
+                    label: 'Stock',
+                    placeholder: '20',
+                    name:'stock',
+                  })
+                  @if(flashMessages.has('errors.stock'))
+                    <small class="text-red-500 text-sm">{{flashMessages.get('errors.stock')}}</small>
+                  @end
+                </div>
+                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
+                  @!component('../admin/components/input',{
+                    label: 'Stock',
+                    placeholder: '20',
+                    name:'stock',
+                  })
+                  @if(flashMessages.has('errors.stock'))
+                    <small class="text-red-500 text-sm">{{flashMessages.get('errors.stock')}}</small>
+                  @end
+                </div>
+                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
+                  @!component('../admin/components/input',{
+                    label: 'SKU',
+                    placeholder: 'SKU103S',
+                    name:'sku',
+                  })
+                  @if(flashMessages.has('errors.sku'))
+                    <small class="text-red-500 text-sm">{{flashMessages.get('errors.sku')}}</small>
+                  @end
+                </div>
+                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
+                  @!component('../admin/components/select',{
+                    label: 'Selecciona una categoría',
+                    data: categories,
+                    name:'category',
+                    defaultText: 'Selecciona una categoría...'
+                  })
+                  @if(flashMessages.has('errors.category'))
+                    <small class="text-red-500 text-sm">{{flashMessages.get('errors.category')}}</small>
+                  @end
+                </div>
+                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
+                  @!component('../admin/components/textarea',{
+                    label: 'Escriba una descipción corta',
+                    name:'short_description',
+                    placeholder: 'Descripcion corta..'
+                  })
+                  @if(flashMessages.has('errors.category'))
+                    <small class="text-red-500 text-sm">{{flashMessages.get('errors.category')}}</small>
+                  @end
+                </div>
+                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
+
+                </div>
+              </div>
+
+          </div>
+        </div>
+      </form>
+
+    </div>
+
+  </section>
+
+
+
+  <script>
+    const $ = (selector) => document.querySelector(selector)
+    const imgPreview = $('.display-img')
+    const input = $('input[name="thumbnail"]')
+    const deleteImg = $('.delete-img')
+    const multipleFilesInput = $('.multiple-files')
+    const files = [];
+    const deletedFiles = []
+    const previewContainer = $('.preview-multifile');
+
+    multipleFilesInput.addEventListener('change', function(event){
+      previewContainer.classList.add('flex', 'gap-1','flex-wrap', 'mt-2', 'items-center', 'justify-start')
+      const newFiles = Array.from(event.target.files)
+      files.push(...newFiles)
+
+      renderPreviews()
+        // Puedes agregar más condiciones para mostrar vistas previas de videos u otros tipos de archivos
+    })
+
+    previewContainer.addEventListener('click', (event) => {
+      const clickedImage = event.target;
+      if (clickedImage.classList.contains('preview-image-hover')) {
+        console.log(Array.from(previewContainer.children))
+        const index = Array.from(previewContainer.children).indexOf(clickedImage.parentElement);
+        if (index !== -1) {
+
+          deletedFiles.push(files[index]);
+
+          files.splice(index, 1);
+
+          renderPreviews();
+        }
+      }
+    })
+
+    function renderPreviews() {
+      previewContainer.innerHTML = ''; // Limpia las vistas previas existentes
+
+      for (const file of files) {
+        if (file.type.startsWith('image/')) {
+          const divElement = document.createElement('div')
+          const divBackground = document.createElement('div')
+          divElement.classList.add('relative','rounded-md', 'overflow-hidden', 'w-20', 'h-20', 'bg-gray-200')
+
+          const imageElement = document.createElement('img');
+          imageElement.classList.add('img-display-multiple', 'w-full', 'object-divBackground');
+          divBackground.classList.add('preview-image-hover');
+          imageElement.src = URL.createObjectURL(file);
+          divElement.appendChild(imageElement)
+          divElement.appendChild(divBackground)
+          previewContainer.appendChild(divElement);
+        }
+      }
+    }
+
+    deleteImg.addEventListener('click', function(){
+      imgPreview.src = '../../no-image.jpg'
+      input.value = ''
+    })
+    input.addEventListener('change', function(e){
+      let file = event.target.files[0]
+      if(file){
+        let reader = new FileReader();
+        reader.onload = function(e) {
+          imgPreview.src = e.target.result;
+        };
+        reader.readAsDataURL(file)
+      }
+    })
+  </script>
+
+@end
+
+
