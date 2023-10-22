@@ -2,14 +2,14 @@
 
 
 @section('body')
-  <section class="hero is-warning ">
+  <section class="hero is-warning h-full ">
     <div class="hero-body mb-5 p-4">
       @!component('../admin/components/head-title',{
         title: 'Productos',
         subtitle: 'Gestiona todos los productos de tu tienda',
       })
     </div>
-    <div class="bg-whitebg2 dark:bg-darkbg2 border-t-2 w-full h-auto min-h-screen p-4 overflow-auto pb-20">
+    <div class="bg-whitebg2 dark:bg-darkbg2 border-t-2 w-full h-auto min-h-full p-4 overflow-auto pb-20">
       <div class="flex w-full h-auto justify-end items-center">
         <a
           href="{{route('admin_add_product')}}"
@@ -18,9 +18,9 @@
       </div>
       <div class="mt-5">
         @!component('../../admin/components/table', {
-          headers: ['Imagen','Nombre', 'Slug', 'Categoría', 'Stock', 'Sku' ,'Publised'],
+          headers: ['Imagen','Nombre', 'Slug', 'Categoría', 'Stock', 'Sku' ,'Publised', 'Acciones'],
           data: products,
-          values: ['thumbnail', 'name', 'slug', 'category', 'stock', 'sku', 'published'],
+          values: ['thumbnail', 'name', 'slug', 'category', 'stock', 'sku', 'published', 'actions'],
           routeEdit: 'admin_edit_product',
           deleteRoute: 'admin_delete_product',
           method: 'DELETE'

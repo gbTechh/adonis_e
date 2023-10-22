@@ -16,14 +16,13 @@
     </div>
   </div>
 
-
+   @set('id', '')
   <table class="w-full h-auto px-3">
     <thead class="border-b-[1px] border-b-gray-300">
       <tr class="w-full">
         @each((item, head) in headers)
           <th class="p-2 text-whitetext font-poppins font-medium text-sm text-left">{{item}}</th>
         @end
-        <th class="p-2 text-whitetext font-poppins font-medium text-sm text-left">Acciones</th>
       </tr>
     </thead>
     <tbody class="w-full">
@@ -36,12 +35,14 @@
               @else
                 <td class="text-sm p-3 w-auto flex-1"><img src="../no-image.jpg" width="40" height="40" alt="Empty file"/></td>
               @end
-            @elseif(val !== 'id')
+            @elseif(val === 'id')
+              @set('id', row[val])
+            @elseif(val !== 'actions')
               <td class="text-sm p-3 w-auto flex-1">{{row[val]}}</td>
             @else
-              <td data-id="{{row[val]}}" class="w-32 p-3 table-actions">
-                <a class="bg-green-600 p-1 rounded-sm edit-btn inline-block mr-2" href="{{route(routeEdit, { id: row[val] })}}" ><img src="/assets/edit.svg" width="15" class="filter-white"></a>
-                <form action="{{ route(deleteRoute, { id: row[val]} ) }}?_method={{method ?? 'POST'}}" method="POST" onsubmit="event.preventDefault(); formSubmit(event,{{row[val]}})">
+              <td data-id="{{id}}" class="w-32 p-3 table-actions">
+                <a class="bg-green-600 p-1 rounded-sm edit-btn inline-block mr-2" href="{{route(routeEdit, { id })}}" ><img src="/assets/edit.svg" width="15" class="filter-white"></a>
+                <form action="{{ route(deleteRoute, { id } ) }}?_method={{method ?? 'POST'}}" method="POST" onsubmit="event.preventDefault(); formSubmit(event,{{id}})">
                   <button type="submit" class=" bg-red-600 p-1 rounded-sm inline-block cursor-pointer" ><img src="/assets/delete.svg" width="15" class="filter-white"></button>
                 </form>
               </td>

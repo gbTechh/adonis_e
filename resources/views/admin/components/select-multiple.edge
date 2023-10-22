@@ -1,0 +1,119 @@
+<label class="w-full mb-2 text-whitetext dark:text-darktext font-semibold text-sm">{{label}}</label>
+<div class="relative">
+  <input type="hidden" class="input-hidden" />
+  <div class="rounded-md bg-whitecard dark:bg-darkcard p-2 text-whitetext dark:text-darktext border-[1px] border-slate-200">
+    <div class="w-auto group-data flex flex-wrap gap-1"></div>
+    <input type="text" placeholder="{{placeholder ?? 'Escribe para buscar...'}}" class="text-sm px-2 outline-none py-1 search-value-input w-full"/>
+  </div>
+  <div class="dropdown-multiselect hidden rounded-md bg-whitecard dark:bg-darkcard absolute left-0 w-full border-[1px] border-slate-200 max-h-[250px] overflow-auto">
+    <ul class="w-full" id="ul-data-list">
+      @each(values in data)
+        <li data-id="{{values.id}}" class="text-whitetext dark:text-darktext text-sm p-2 hover:bg-slate-100 rounded-sm list-multipleselect">{{values.name}}</li>
+
+      @end
+        <li class="no-datos hidden text-whitetext2 dark:text-darktext2 text-sm p-2">No hay resultados que coincidan</li>
+    </ul>
+  </div>
+</div>
+
+
+<script>
+  const $$ = (selector) => document.querySelectorAll(selector)
+
+  const groupData = document.querySelector('.group-data')
+  const inputText = document.querySelector('.search-value-input')
+  const dropdown = document.querySelector('.dropdown-multiselect');
+  let valueInput = []
+  const selectedIds = {{ selectedData | []}}
+  $$('.list-multipleselect').forEach(item => {
+    item.addEventListener('click', (event) => {
+      const id = event.target.getAttribute('data-id')
+      const text = event.target.innerText.trim()
+
+      if(!valueInput.includes(id)){
+        valueInput.push(id)
+        document.querySelector('.input-hidden').value = valueInput.join('|')
+        item.classList.add('disable-multiple-select-item')
+
+        const span = document.createElement('span')
+        span.setAttribute('data-id', id)
+        span.classList.add('bg-darkbg', 'rounded-full','text-xs', 'text-darktext', 'px-2', 'py-1','select-none','item-multiple-selected')
+        const spanText = document.createTextNode(text)
+        span.appendChild(spanText)
+        groupData.appendChild(span)
+      }
+    })
+  })
+  groupData.addEventListener('click', (event) => {
+    if (event.target.classList.contains('item-multiple-selected')) {
+      const id = event.target.getAttribute('data-id')
+      const listItem = document.querySelector(`li.list-multipleselect[data-id="${id}"]`)
+      listItem.classList.remove('disable-multiple-select-item')
+      valueInput = valueInput.filter(e => e !== id)
+      groupData.removeChild(event.target)
+      document.querySelector('.input-hidden').value = valueInput.join('|')
+    }
+  })
+  const lista = document.getElementById('ul-data-list');
+  const elementosLi = lista.getElementsByTagName('li');
+  const noDatos = lista.querySelector('.no-datos');
+  inputText.addEventListener('click', (ev) => {
+    dropdown.style.display = 'block'
+  })
+
+  inputText.addEventListener('input', (ev) => {
+    const filtro = ev.target.value.toLowerCase()
+    let algunaCoincidencia = false;
+
+    for (let i = 0; i < elementosLi.length; i++) {
+      const textoLi = elementosLi[i].textContent.toLowerCase();
+
+      if (textoLi.includes(filtro)) {
+        elementosLi[i].style.display = 'block';
+        algunaCoincidencia = true;
+      } else {
+        elementosLi[i].style.display = 'none';
+      }
+    }
+
+    if (algunaCoincidencia) {
+      noDatos.style.display = 'none'; // Oculta el mensaje "No hay datos"
+    } else {
+      noDatos.style.display = 'block'; // Muestra el mensaje "No hay datos"
+    }
+  })
+  function showSelectedElements() {
+    if(selectedIds.length){
+      selectedIds.forEach((id) => {
+        // Encuentra el elemento correspondiente en la lista
+        const selectedItem = $('.list-multipleselect[data-id="' + id + '"]');
+
+        if (selectedItem) {
+          const text = selectedItem.innerText.trim();
+          const span = document.createElement('span');
+          span.setAttribute('data-id', id);
+          span.classList.add('bg-darkbg', 'rounded-full', 'text-xs', 'text-darktext', 'px-2', 'py-1', 'select-none', 'item-multiple-selected');
+          const spanText = document.createTextNode(text);
+          span.appendChild(spanText);
+          groupData.appendChild(span);
+        }
+      });
+    }
+  }
+
+  showSelectedElements()
+  inputText.addEventListener('focus', function() {
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape' || event.keyCode === 27) {
+        dropdown.style.display = 'none'
+      }
+    })
+  });
+
+  document.addEventListener('click', () => {
+    if (!dropdown.contains(event.target) && event.target !== inputText) {
+      dropdown.style.display = 'none';
+    }
+  })
+
+</script>

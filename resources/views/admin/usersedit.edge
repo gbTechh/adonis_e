@@ -2,14 +2,14 @@
 
 @set('modalMode', typeModal)
 @section('body')
-  <section class="hero is-warning ">
+  <section class="hero is-warning h-full ">
     <div class="hero-body mb-10 p-4">
       @!component('../admin/components/head-title',{
         title: 'Usuarios',
         subtitle: 'Gestiona todos los usuarios de tu tienda'
       })
     </div>
-    <div class="bg-whitebg2 dark:bg-darkbg2 border-t-2 w-full h-screen p-4">
+    <div class="bg-whitebg2 dark:bg-darkbg2 border-t-2 w-full min-h-full p-4">
       <div class="flex w-full h-auto justify-end items-center">
         <button
           class="p-2 px-5 flex justify-center items-center text-white bg-darkbg rounded-md text-sm"

@@ -63,6 +63,9 @@
   grid-template-columns: repeat(auto-fill, minmax(min(100%, max(300px, calc(50% - 10px))), 1fr));
   gap: 10px;
 }
+.cols-2{
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, max(300px, calc(50% - 10px))), 1fr));
+}
 
 .alert-animation-close {
   width: 100%;
@@ -103,4 +106,12 @@
 .preview-image-hover:hover{
   opacity: 100;
 
+}
+
+.disable-multiple-select-item {
+  cursor: default;
+  color: gray;
+}
+.disable-multiple-select-item:hover {
+  background: transparent;
 }

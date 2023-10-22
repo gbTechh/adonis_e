@@ -2,14 +2,14 @@
 
 
 @section('body')
-  <section class="hero is-warning ">
+  <section class="hero is-warning h-full ">
     <div class="hero-body mb-5 p-4">
       @!component('../admin/components/head-title',{
         title: 'Usuarios',
         subtitle: 'Gestiona todos los usuarios de tu tienda',
       })
     </div>
-    <div class="bg-whitebg2 dark:bg-darkbg2 border-t-2 w-full h-screen p-4">
+    <div class="bg-whitebg2 dark:bg-darkbg2 border-t-2 w-full min-h-full p-4">
       <div class="flex w-full h-auto justify-end items-center">
         <a
           href="{{route('admin_add_user')}}"
@@ -18,9 +18,9 @@
       </div>
       <div class="mt-5">
         @!component('../../admin/components/table', {
-          headers: ['Nombre', 'Email'],
+          headers: ['Nombre', 'Email', 'Acciones'],
           data: users,
-          values: ['name', 'email', 'id'],
+          values: ['name', 'email', 'id', 'actions'],
           routeEdit: 'admin_edit_user',
           deleteRoute: 'admin_delete_user'
         })

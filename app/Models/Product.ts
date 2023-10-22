@@ -1,6 +1,14 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, belongsTo, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
+import {
+  BaseModel,
+  column,
+  belongsTo,
+  BelongsTo,
+  manyToMany,
+  ManyToMany,
+} from '@ioc:Adonis/Lucid/Orm'
 import Category from 'App/Models/Category'
+import Tag from 'App/Models/Tag'
 
 export default class Product extends BaseModel {
   @column({ isPrimary: true })
@@ -47,4 +55,10 @@ export default class Product extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @manyToMany(() => Tag, {
+    pivotForeignKey: 'id_product',
+    pivotRelatedForeignKey: 'id_tag',
+  })
+  public tags: ManyToMany<typeof Tag>
 }

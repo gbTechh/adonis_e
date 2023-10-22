@@ -1,7 +1,7 @@
 @layout('../admin/layouts/layout')
 
 @section('body')
-  <section class="hero is-warning ">
+  <section class="hero is-warning h-full ">
     <div class="hero-body mb-5 p-4">
       @!component('../admin/components/head-title',{
         title: 'Agrega un nuevo usuario',
@@ -9,7 +9,7 @@
         backRoute: 'admin_show_users'
       })
     </div>
-    <div class="bg-whitebg2 dark:bg-darkbg2 border-t-2 w-full h-screen p-4">
+    <div class="bg-whitebg2 dark:bg-darkbg2 border-t-2 w-full min-h-full p-4">
       <form class="w-full" action="{{ route('admin_edit_user_post', { id : user.id }) }}" method="POST">
         <div class="flex w-full h-auto justify-end items-center">
           <button
@@ -22,7 +22,7 @@
           <div class="w-full h-full" >
 
               <div class="grid form-2-cols ">
-                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
+                <div class="bg-whitecard flex flex-col w-full h-auto p-4 rounded-md flex-1">
                   @!component('../admin/components/input',{
                     label: 'Nombre',
                     placeholder: 'Escribe el nombre',
@@ -33,7 +33,7 @@
                     <small class="text-red-500 text-sm">{{flashMessages.get('errors.name')}}</small>
                   @end
                 </div>
-                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
+                <div class="bg-whitecard flex flex-col w-full h-auto p-4 rounded-md flex-1">
                   @!component('../admin/components/input',{
                     label: 'Email',
                     placeholder: 'Escribe un correo electrónico',
@@ -44,7 +44,7 @@
                     <small class="text-red-500 text-sm">{{flashMessages.get('errors.email')}}</small>
                   @end
                 </div>
-                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
+                <div class="bg-whitecard flex flex-col w-full h-auto p-4 rounded-md flex-1">
                   @!component('../admin/components/input',{
                     label: 'Cambiar contraseña',
                     placeholder: 'Escribe una contraseña',
@@ -55,7 +55,7 @@
                     <small class="text-red-500 text-sm">{{flashMessages.get('errors.password')}}</small>
                   @end
                 </div>
-                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
+                <div class="bg-whitecard flex flex-col w-full h-auto p-4 rounded-md flex-1">
                   @!component('../admin/components/input',{
                     label: 'Repetir contraseña',
                     placeholder: 'Repite la contraseña contraseña',

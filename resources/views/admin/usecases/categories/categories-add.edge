@@ -1,7 +1,7 @@
 @layout('../admin/layouts/layout')
 
 @section('body')
-  <section class="hero is-warning ">
+  <section class="hero is-warning h-full ">
     <div class="hero-body mb-5 p-4">
       @!component('../admin/components/head-title',{
         title: 'Agrega una nueva categoría',
@@ -9,7 +9,7 @@
         backRoute: 'admin_show_categories'
       })
     </div>
-    <div class="bg-whitebg2 dark:bg-darkbg2 border-t-2 w-full h-screen p-4">
+    <div class="bg-whitebg2 dark:bg-darkbg2 border-t-2 w-full min-h-full p-4">
       <form class="w-full" action="{{ route('admin_add_category_post') }}" method="POST" enctype="multipart/form-data">
         <div class="flex w-full h-auto justify-end items-center">
           <button
@@ -21,7 +21,7 @@
         <div class="mt-10">
           <div class="w-full h-full" >
               <div class="grid form-2-cols ">
-                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
+                <div class="bg-whitecard flex flex-col w-full h-auto p-4 rounded-md flex-1">
                   @!component('../admin/components/input',{
                     label: 'Nombre',
                     placeholder: 'Escribe el nombre',
@@ -32,7 +32,7 @@
                     <small class="text-red-500 text-sm">{{flashMessages.get('errors.name')}}</small>
                   @end
                 </div>
-                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
+                <div class="bg-whitecard flex flex-col w-full h-auto p-4 rounded-md flex-1">
                   @!component('../admin/components/input',{
                     label: 'Slug',
                     placeholder: 'Escribe un slug para la categoría',
@@ -43,7 +43,7 @@
                     <small class="text-red-500 text-sm">{{flashMessages.get('errors.slug')}}</small>
                   @end
                 </div>
-                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
+                <div class="bg-whitecard flex flex-col w-full h-auto p-4 rounded-md flex-1">
                   @!component('../admin/components/select',{
                     label: 'Selecciona una categoría padre',
                     placeholder: 'Repite la contraseña contraseña',
@@ -54,7 +54,7 @@
                     <small class="text-red-500 text-sm">{{flashMessages.get('errors.parent_id')}}</small>
                   @end
                 </div>
-                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
+                <div class="bg-whitecard flex flex-col w-full h-auto p-4 rounded-md flex-1">
                   @!component('../admin/components/input',{
                     label: 'Selecciona una imagen',
                     name:'thumbnail',

@@ -1,7 +1,7 @@
 @layout('../admin/layouts/layout')
 
 @section('body')
-  <section class="hero is-warning ">
+  <section class="hero is-warning h-full ">
     <div class="hero-body mb-5 p-4">
       @!component('../admin/components/head-title',{
         title: 'Agrega uno nuevo producto',
@@ -9,7 +9,7 @@
         backRoute: 'admin_show_products'
       })
     </div>
-    <div class="bg-whitebg2 dark:bg-darkbg2 border-t-2 w-full min-h-screen p-4">
+    <div class="bg-whitebg2 dark:bg-darkbg2 border-t-2 w-full min-h-screen p-4 pb-16">
       <form class="w-full" action="{{ route('admin_add_product_post') }}" method="POST" enctype="multipart/form-data">
         <div class="flex w-full h-auto justify-end items-center">
           <button
@@ -21,7 +21,7 @@
         <div class="mt-10">
           <div class="w-full h-full" >
               <div class="grid form-2-cols ">
-                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
+                <div class="bg-whitecard flex flex-col w-full h-auto p-4 rounded-md flex-1">
                   @!component('../admin/components/input',{
                     label: 'Nombre',
                     placeholder: 'Escribe el nombre',
@@ -32,7 +32,7 @@
                     <small class="text-red-500 text-sm">{{flashMessages.get('errors.name')}}</small>
                   @end
                 </div>
-                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
+                <div class="bg-whitecard flex flex-col w-full h-auto p-4 rounded-md flex-1">
                   @!component('../admin/components/input',{
                     label: 'Slug',
                     placeholder: 'producto-slug',
@@ -43,7 +43,7 @@
                     <small class="text-red-500 text-sm">{{flashMessages.get('errors.slug')}}</small>
                   @end
                 </div>
-                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
+                <div class="bg-whitecard flex flex-col w-full h-auto p-4 rounded-md flex-1">
                    @!component('../admin/components/textarea',{
                     label: 'Descripción del producto',
                     name:'description',
@@ -54,7 +54,7 @@
                     <small class="text-red-500 text-sm">{{flashMessages.get('errors.description')}}</small>
                   @end
                 </div>
-                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1 justify-between">
+                <div class="bg-whitecard flex flex-col w-full h-auto p-4 rounded-md flex-1 justify-between">
                   <div class="flex items-center justify-between">
                     <div class="relative mr-2 rounded-md overflow-hidden">
                       <div class="opacity-0 hover:opacity-100 w-full absolute h-full left-0 top-0 bg-slate-600/60 transition-all  flex item-center justify-center delete-img" >
@@ -88,67 +88,17 @@
 
                   </div>
                 </div>
-                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
+                <div class="bg-whitecard flex flex-col w-full h-auto p-4 rounded-md flex-1">
                   @!component('../admin/components/input',{
                     label: 'Precio descuento',
-                    placeholder: '9.99',
+                    placeholder: '92.99',
                     name:'price_discount',
                   })
                   @if(flashMessages.has('errors.price_discount'))
                     <small class="text-red-500 text-sm">{{flashMessages.get('errors.price_discount')}}</small>
                   @end
                 </div>
-                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
-                  @!component('../admin/components/input',{
-                    label: 'Precio normal',
-                    placeholder: '19.99',
-                    name:'price_normal',
-                  })
-                  @if(flashMessages.has('errors.price_normal'))
-                    <small class="text-red-500 text-sm">{{flashMessages.get('errors.price_normal')}}</small>
-                  @end
-                </div>
-                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
-                  @!component('../admin/components/input',{
-                    label: 'Precio normal',
-                    placeholder: '19.99',
-                    name:'price_normal',
-                  })
-                  @if(flashMessages.has('errors.price_normal'))
-                    <small class="text-red-500 text-sm">{{flashMessages.get('errors.price_normal')}}</small>
-                  @end
-                </div>
-                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
-                  @!component('../admin/components/input',{
-                    label: 'Stock',
-                    placeholder: '20',
-                    name:'stock',
-                  })
-                  @if(flashMessages.has('errors.stock'))
-                    <small class="text-red-500 text-sm">{{flashMessages.get('errors.stock')}}</small>
-                  @end
-                </div>
-                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
-                  @!component('../admin/components/input',{
-                    label: 'Stock',
-                    placeholder: '20',
-                    name:'stock',
-                  })
-                  @if(flashMessages.has('errors.stock'))
-                    <small class="text-red-500 text-sm">{{flashMessages.get('errors.stock')}}</small>
-                  @end
-                </div>
-                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
-                  @!component('../admin/components/input',{
-                    label: 'SKU',
-                    placeholder: 'SKU103S',
-                    name:'sku',
-                  })
-                  @if(flashMessages.has('errors.sku'))
-                    <small class="text-red-500 text-sm">{{flashMessages.get('errors.sku')}}</small>
-                  @end
-                </div>
-                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
+                <div class="bg-whitecard flex flex-col w-full h-auto p-4 rounded-md flex-1">
                   @!component('../admin/components/select',{
                     label: 'Selecciona una categoría',
                     data: categories,
@@ -159,19 +109,52 @@
                     <small class="text-red-500 text-sm">{{flashMessages.get('errors.category')}}</small>
                   @end
                 </div>
-                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
-                  @!component('../admin/components/textarea',{
-                    label: 'Escriba una descipción corta',
-                    name:'short_description',
-                    placeholder: 'Descripcion corta..'
+
+
+                <div class="bg-whitecard flex flex-col w-full h-auto p-4 rounded-md flex-1">
+                  @!component('../admin/components/input',{
+                    label: 'Precio normal',
+                    placeholder: '19.99',
+                    name:'price_normal',
                   })
-                  @if(flashMessages.has('errors.category'))
+                  @if(flashMessages.has('errors.price_normal'))
+                    <small class="text-red-500 text-sm">{{flashMessages.get('errors.price_normal')}}</small>
+                  @end
+                </div>
+                <div class="bg-whitecard flex flex-col w-full h-auto p-4 rounded-md flex-1">
+                  @!component('../admin/components/select-multiple',{
+                    label: 'Selecciona una tag',
+                    data: tags,
+                    name:'tag',
+                    defaultText: 'Selecciona una tag...'
+                  })
+                  @if(flashMessages.has('errors.tag'))
                     <small class="text-red-500 text-sm">{{flashMessages.get('errors.category')}}</small>
                   @end
                 </div>
-                <div class="flex flex-col w-full h-auto p-4 rounded-md border-[1px] border-gray-300 flex-1">
-
+                <div class="bg-whitecard flex flex-col w-full h-auto p-4 rounded-md flex-1">
+                  @!component('../admin/components/input',{
+                    label: 'Stock',
+                    placeholder: '20',
+                    name:'stock',
+                  })
+                  @if(flashMessages.has('errors.stock'))
+                    <small class="text-red-500 text-sm">{{flashMessages.get('errors.stock')}}</small>
+                  @end
                 </div>
+                <div class="bg-whitecard flex flex-col w-full h-auto p-4 rounded-md flex-1 row-start-6 row-end-7">
+                  @!component('../admin/components/input',{
+                    label: 'SKU',
+                    placeholder: 'SKU103S',
+                    name:'sku',
+                  })
+                  @if(flashMessages.has('errors.sku'))
+                    <small class="text-red-500 text-sm">{{flashMessages.get('errors.sku')}}</small>
+                  @end
+                </div>
+
+
+
               </div>
 
           </div>

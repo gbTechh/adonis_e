@@ -3,6 +3,7 @@ import { routes } from '../../Routes/routes'
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import Product from 'App/Models/Product'
 import Category from 'App/Models/Category'
+import Tag from 'App/Models/Tag'
 
 export default class ProductsController {
   public async showProducts({ view }: HttpContextContract) {
@@ -14,10 +15,12 @@ export default class ProductsController {
   public async addProductShow({ view }: HttpContextContract) {
     const title = 'Tienda | Agregar una categoría'
     const categories = await Category.all()
+    const tags = await Tag.all()
     return view.render('admin/usecases/products/products-add', {
       title,
       routes,
       categories,
+      tags,
     })
   }
 }
