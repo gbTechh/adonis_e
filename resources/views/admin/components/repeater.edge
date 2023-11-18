@@ -1,0 +1,25 @@
+<div class="flex justify-between items-center mb-3">
+  <label class="w-auto text-whitetext dark:text-darktext font-semibold text-sm flex items-center">{{label}}</label>
+  <button type="button" class="clone-button p-2 flex justify-center items-center text-white bg-darkbg2 rounded-md text-xs">+ Agregar {{label}}</button>
+</div>
+<div class="w-full flex flex-col wrapper-repeater gap-[2px]">
+  <div class="children-repeater flex justify-between items-center bg-whitebg p-2 rounded-md">
+    <div class="flex w-full">
+      @if($slots.content)
+        {{{ await $slots.content() }}}
+      @end
+    </div>
+    <button type="button" class="delete-children-repeater p-1 bg-darkcard rounded-sm self-end ml-2 mb-2">
+      @!component('../../admin/components/icons/delete', {
+        classes: 'pointer-events-none',
+        width: 15,
+        height: 18,
+        color: "#fff"
+      })
+    </button>
+  </div>
+</div>
+
+<script>
+
+</script>

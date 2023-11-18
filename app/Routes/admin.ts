@@ -57,5 +57,13 @@ Route.group(() => {
     Route.delete('/:id', 'TagsController.destroy').as('admin_delete_tag')
   }).prefix('tags')
 
+  Route.group(() => {
+    Route.get('/', 'AttributesController.showAttributes').as('admin_show_attributes')
+    Route.post('/add', 'AttributesController.addAttribute').as('admin_add_attribute_post')
+    Route.get('/:id', 'AttributesController.editAttributeShow').as('admin_edit_attribute')
+    Route.put('/:id', 'AttributesController.editAttribute').as('admin_edit_attribute_post')
+    Route.delete('/:id', 'AttributesController.destroy').as('admin_delete_attribute')
+  }).prefix('attributes')
+
   Route.get('/404', 'ErrorHandlersController.notFound').as('404')
 }).prefix('/admin')

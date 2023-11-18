@@ -63,6 +63,16 @@
   grid-template-columns: repeat(auto-fill, minmax(min(100%, max(300px, calc(50% - 10px))), 1fr));
   gap: 10px;
 }
+.form-2-cols-products{
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, max(300px, calc(50% - 10px))), 1fr));
+  gap: 10px;
+}
+.form-1-col-flex{
+  flex-grow: 2;
+}
+.form-2-col-flex{
+  flex-grow: 2;
+}
 .cols-2{
   grid-template-columns: repeat(auto-fill, minmax(min(100%, max(300px, calc(50% - 10px))), 1fr));
 }
@@ -114,4 +124,39 @@
 }
 .disable-multiple-select-item:hover {
   background: transparent;
+}
+.expand {
+  width: 100%;
+  transition: all 0.2s ease;
+}
+.contract{
+  width: 0px;
+  max-width: 0px;
+  min-width: 0px;
+
+  transition: all 0.2s ease;
+}
+.no-rotate-arrow{
+  transform: rotate(0deg);
+  transition: all 0.2s ease;
+}
+.rotate-arrow{
+  transform: rotate(180deg);
+  transition: all 0.2s ease;
+}
+.btn-expand{
+  transform: translateX(0px);
+  transition: all 0.2s ease;
+}
+.btn-contract{
+  transform: translateX(-10px);
+  transition: all 0.2s ease;
+}
+.select-product-add {
+  padding: 0.5rem 0.4rem;
+  font-size: 0.8rem;
+}
+
+.show {
+  display: block;
 }

@@ -24,4 +24,9 @@ export const routes = [
     path: '/admin/tags',
     pathIcon: '/assets/tags.svg',
   },
+  {
+    name: 'atributos',
+    path: '/admin/attributes',
+    pathIcon: '/assets/tags.svg',
+  },
 ]

@@ -1,0 +1,76 @@
+
+<div class="select-attr flex w-full ">
+  <div class="flex flex-col">
+    <label class="{{classlabel ?? ''}} w-full mb-2 text-whitetext dark:text-darktext font-medium text-xs">{{labelAttr}}</label>
+    <select placeholder="{{placeholderSelect}}" type="{{type ?? 'text'}}" name="{{name}}" value="{{value ?? ''}}" class="select-attributes rounded-md bg-whitecard dark:bg-darkcard p-2 text-xs text-whitetext dark:text-darktext border-[1px] border-slate-200 {{classes ?? ''}} ">
+      <option value="0" class="text-whitetext dark:text-darktext text-md">{{defaultText ?? 'Seleccionar una categoría padre...'}}</option>
+      @each(item in dataSelect)
+        <option value="{{item.id}}" class="text-whitetext dark:text-darktext text-md" {{ item.id === selected && 'selected'}}>{{item.name}}</option>
+      @end
+    </select>
+  </div>
+
+  <div class="flex flex-col w-full ml-2">
+    <label class="w-full mb-2 text-whitetext dark:text-darktext font-medium text-xs">{{label}}</label>
+    <div class="relative wrap-input-select">
+      <input type="hidden" class="input-hidden-attr" />
+      <div class="group rounded-md bg-whitecard dark:bg-darkcard p-1 text-whitetext dark:text-darktext border-[1px] border-slate-200">
+        <div class="w-auto group-data-attr flex flex-wrap gap-1"></div>
+        <input type="text" placeholder="{{placeholder ?? 'Escribe para buscar...'}}"  class="text-xs px-2 outline-none py-1 search-value-input-attr w-full"/>
+      </div>
+      <div class="dropdown-multiselect-attr hidden rounded-md bg-whitecard dark:bg-darkcard absolute left-0 w-full border-[1px] border-slate-200 max-h-[250px] overflow-auto z-50">
+        <ul class="w-full ul-data-list-attr">
+          @each(values in data)
+            <li data-id="{{values.id}}" class="text-whitetext dark:text-darktext text-xs p-2 hover:bg-slate-100 rounded-sm list-multipleselect-attr">{{values.name}}</li>
+
+          @end
+            <li class="no-datos-attr hidden text-whitetext2 dark:text-darktext2 text-xs p-2">No hay resultados que coincidan</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+  const dataSelect = {{{JSON.stringify(dataOptions)}}}
+
+  document.addEventListener('change', function (e) {
+    if (e.target && e.target.classList.contains('select-attributes')) {
+      const value = e.target.value
+      const lis = dataSelect.filter(e => `${e.id_attribute}` === `${value}`)
+
+      const ul = e.target.parentElement.parentElement.querySelector('.ul-data-list-attr')
+      ul.innerHTML = ''
+      const groupData = e.target.parentElement.parentElement.querySelector('.group-data-attr')
+      groupData.innerHTML = ''
+      const inputHidden = e.target.parentElement.parentElement.querySelector('.input-hidden-attr')
+      inputHidden.value = ''
+      for (const item of lis) {
+        const liClone = createValuesLi(item.id, item.value)
+        ul.appendChild(liClone)
+      }
+    }
+  })
+
+  function createValuesLi(id, text){
+    const li = document.createElement('li')
+    li.setAttribute('data-id', id)
+    li.classList.add(
+      'text-whitetext',
+      'dark:text-darktext',
+      'text-sm',
+      'p-2',
+      'hover:bg-slate-100',
+      'rounded-sm',
+      'list-multipleselect-attr',
+    )
+    const liText = document.createTextNode(text)
+    li.appendChild(liText)
+    return li
+  }
+
+</script>
+
+

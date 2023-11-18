@@ -1,0 +1,66 @@
+<label class="w-full mb-2 text-whitetext dark:text-darktext font-semibold text-sm {{classlabel ?? ''}}">{{label}}</label>
+<div class="relative">
+  <input type="hidden" class="input-hidden-attributes" name="{{name}}" value="{{value ?? ''}}"/>
+  <div class="rounded-md bg-whitecard dark:bg-darkcard p-2 text-whitetext dark:text-darktext border-[1px] border-slate-200 {{classes ?? ''}}">
+    <div class="w-auto group-data flex flex-wrap gap-1"></div>
+    <input type="text" placeholder="{{placeholder ?? 'Escribe para buscar...'}}" class="text-sm px-2 outline-none py-1 add-value-input w-full"/>
+  </div>
+</div>
+
+
+<script>
+
+  const groupDataRepeater = document.querySelector('.group-data')
+  const inputTextRepeater = document.querySelector('.add-value-input')
+  const inputHiddenRepeater = document.querySelector('.input-hidden-attributes')
+  let valueInputRepeater = []
+
+  let text = ''
+  renderSpansValuesRepeaterFromValue();
+  inputTextRepeater.addEventListener('input', (ev) => {
+    text = ev.target.value
+    // console.log(text.split(','))
+    if (text.includes(',')) {
+      let word = text.split(',')[0].toLowerCase().trim()
+      if(!valueInputRepeater.includes(word) && word.length > 0){
+        valueInputRepeater.push(word)
+        renderSpansValuesRepeater(word)
+      }
+      text = ''
+      ev.target.value = ''
+    }
+    inputHiddenRepeater.value = valueInputRepeater.join('|')
+    console.log(valueInputRepeater)
+  })
+
+  function renderSpansValuesRepeater(value){
+    const span = document.createElement('span')
+    span.setAttribute('data-value', value)
+    span.classList.add('bg-darkbg', 'rounded-full','text-xs', 'text-darktext', 'px-2', 'py-1','select-none','item-multiple-selected')
+    const spanText = document.createTextNode(value)
+    span.appendChild(spanText)
+    groupDataRepeater.appendChild(span)
+  }
+
+  groupDataRepeater.addEventListener('click', (event) => {
+    if (event.target.classList.contains('item-multiple-selected')) {
+      const value = event.target.getAttribute('data-value')
+      valueInputRepeater = valueInputRepeater.filter(e => e !== value)
+      groupDataRepeater.removeChild(event.target)
+      inputHiddenRepeater.value = valueInputRepeater.join('|')
+    }
+  })
+
+  function renderSpansValuesRepeaterFromValue(){
+    const values = inputHiddenRepeater.value;
+
+    if(values){
+      values.split('|').map(word => {
+        renderSpansValuesRepeater(word)
+        valueInputRepeater.push(word)
+      })
+    }
+  }
+
+
+</script>

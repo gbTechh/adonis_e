@@ -7,12 +7,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
     <title>{{ title }}</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @entryPointStyles('app')
     @entryPointScripts('app')
   </head>
   <body>
 
-    <main class="w-full min-h-screen bg-darkbg p-2 flex gap-3 ">
+    <main class="w-full min-h-screen bg-darkbg p-2 flex ">
       @include('../admin/partials/sidebar')
       <section class="w-full self-stretch dark:bg-darkbg bg-whitebg rounded-lg flex overflow-hidden ">
         <div class="w-full h-full ">
@@ -21,7 +22,16 @@
           <footer class="footer">
           </footer>
         </div>
-        <div class="w-full h-full min-w-[200px] max-w-[280px] border-l-2">
+        <div class="expand h-full min-w-[200px] max-w-[280px] border-l-2 relative sidebar-right">
+          <span class="btn-expand cursor-pointer rounded-lg bg-darkbg w-8 h-8 absolute top-2 -left-4 border-2 btn-sidebarright grid place-items-center">
+            @component('../../admin/components/icons/arrow-right',{
+              classes: 'text-white arrow-svg no-rotate-arrow',
+              color: '#fff',
+              w: 15,
+              h: 15
+            })
+            @end
+          </span>
         </div>
       </section>
 
@@ -30,3 +40,16 @@
 
   </body>
 </html>
+
+
+<script>
+  const btnSidebarRight = document.querySelector('.btn-sidebarright')
+
+  btnSidebarRight.addEventListener('click', () => {
+    const sideBarRight = document.querySelector('.sidebar-right')
+    const arrowSvg = document.querySelector('.arrow-svg')
+    sideBarRight.classList.toggle('contract')
+    btnSidebarRight.classList.toggle('btn-contract')
+    arrowSvg.classList.toggle('rotate-arrow')
+  })
+</script>
